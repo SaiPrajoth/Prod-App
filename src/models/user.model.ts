@@ -1,13 +1,13 @@
 import mongoose, { Schema, Document, mongo } from "mongoose";
 
-interface LoginStatus extends Document {
+export interface LoginStatus extends Document {
   twitter: boolean;
   reddit: boolean;
   hashnode: boolean;
   medium: boolean;
   linkedIn: boolean;
 }
-interface User extends Document {
+export interface User extends Document {
   firstname: string;
   lastname: string;
   username: string;
@@ -89,7 +89,10 @@ const UserSchema: Schema<User> = new Schema({
     type: Boolean,
     default: false,
   },
-  loginStatus:LoginStatusSchema
+  loginStatus:{
+    type:LoginStatusSchema,
+    default:()=>({})
+  }
 });
 
 const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>('User',UserSchema))
